@@ -5,7 +5,7 @@ ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /opt/
 COPY package.json package-lock.json ./
-RUN npm config set maxsockets 5 && npm install -g node-gyp 
+RUN npm config set maxsockets 5 -g && npm install -g node-gyp 
 RUN npm config set fetch-retry-maxtimeout 600000 -g \ 
     && npm install --only=production
 ENV PATH /opt/node_modules/.bin:$PATH
@@ -15,8 +15,7 @@ RUN npm run build
 
 # Creating final production image
 FROM node:18-alpine3.18
-RUN apk add --no-cache vips-dev \
-    && npm config set maxsockets 5
+RUN apk add --no-cache vips-dev
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 WORKDIR /opt/
