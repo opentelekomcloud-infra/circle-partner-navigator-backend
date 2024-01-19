@@ -5,7 +5,7 @@ ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /opt/
 COPY package.json package-lock.json ./
-RUN npm install -g node-gyp && npm config set maxsockets 5
+RUN npm config set maxsockets 5 && npm install -g node-gyp 
 RUN npm config set fetch-retry-maxtimeout 600000 -g \ 
     && npm install --only=production
 ENV PATH /opt/node_modules/.bin:$PATH
