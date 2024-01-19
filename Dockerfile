@@ -3,7 +3,7 @@ RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev l
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
-RUN ulimit -n 65536
+RUN npm config set maxsockets 10
 
 WORKDIR /opt/
 COPY package.json package-lock.json ./
