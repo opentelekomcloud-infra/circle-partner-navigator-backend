@@ -1,5 +1,5 @@
-FROM node:18-alpine3.18 as build
-RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev vips-dev git > /dev/null 2>&1
+FROM node:18 as build
+RUN apt-get update && apt-get install -y build-essential gcc autoconf automake libghc-zlib-dev libpng-dev libvips-dev git
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
@@ -14,8 +14,8 @@ COPY . .
 RUN npm run build
 
 # Creating final production image
-FROM node:18-alpine3.18
-RUN apk add --no-cache vips-dev
+FROM node:18
+RUN apt-get update && apt-get install libvips -y
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 WORKDIR /opt/
