@@ -3,7 +3,7 @@ RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev l
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
-RUN npm config set maxsockets 10
+RUN npm config set maxsockets 5
 
 WORKDIR /opt/
 COPY package.json package-lock.json ./
@@ -16,6 +16,7 @@ RUN npm run build
 
 # Creating final production image
 FROM node:20-alpine3.18
+RUN npm config set maxsockets 5
 RUN apk add --no-cache vips-dev
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
