@@ -1182,12 +1182,78 @@ export interface ApiTagTag extends Schema.CollectionType {
       'api::partner.partner'
     >;
     name: Attribute.String & Attribute.Required & Attribute.Unique;
+    tag_category: Attribute.Relation<
+      'api::tag.tag',
+      'manyToOne',
+      'api::tag-category.tag-category'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::tag.tag', 'oneToOne', 'admin::user'> &
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::tag.tag', 'oneToOne', 'admin::user'> &
       Attribute.Private;
+  };
+}
+
+export interface ApiTagCategoryTagCategory extends Schema.CollectionType {
+  collectionName: 'tag_categories';
+  info: {
+    singularName: 'tag-category';
+    pluralName: 'tag-categories';
+    displayName: '6_tag_categories';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    order: Attribute.Integer &
+      Attribute.Unique &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    tag: Attribute.Relation<
+      'api::tag-category.tag-category',
+      'oneToMany',
+      'api::tag.tag'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::tag-category.tag-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::tag-category.tag-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::tag-category.tag-category',
+      'oneToMany',
+      'api::tag-category.tag-category'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -1246,6 +1312,7 @@ declare module '@strapi/types' {
       'api::partner-program-site.partner-program-site': ApiPartnerProgramSitePartnerProgramSite;
       'api::quote.quote': ApiQuoteQuote;
       'api::tag.tag': ApiTagTag;
+      'api::tag-category.tag-category': ApiTagCategoryTagCategory;
       'api::website-asset.website-asset': ApiWebsiteAssetWebsiteAsset;
     }
   }

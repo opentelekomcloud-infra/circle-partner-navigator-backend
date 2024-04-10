@@ -25,6 +25,12 @@
       "type": "string",
       "required": true,
       "unique": true
+    },
+    "tag_category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::tag-category.tag-category",
+      "inversedBy": "tag"
     }
   }
 }
