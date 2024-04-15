@@ -1222,13 +1222,12 @@ export interface ApiTagCategoryTagCategory extends Schema.CollectionType {
         };
       }>;
     order: Attribute.Integer &
-      Attribute.Unique &
       Attribute.SetPluginOptions<{
         i18n: {
-          localized: true;
+          localized: false;
         };
       }>;
-    tag: Attribute.Relation<
+    tags: Attribute.Relation<
       'api::tag-category.tag-category',
       'oneToMany',
       'api::tag.tag'

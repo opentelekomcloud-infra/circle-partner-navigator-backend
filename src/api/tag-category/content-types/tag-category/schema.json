@@ -29,13 +29,13 @@
     "order": {
       "pluginOptions": {
         "i18n": {
-          "localized": true
+          "localized": false
         }
       },
       "type": "integer",
-      "unique": true
+      "unique": false
     },
-    "tag": {
+    "tags": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::tag.tag",
