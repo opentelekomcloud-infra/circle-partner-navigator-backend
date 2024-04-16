@@ -1,34 +1,29 @@
-FROM node:20 as build
-RUN apt-get update && apt-get install -y build-essential gcc autoconf automake libghc-zlib-dev libpng-dev libvips-dev git
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
+# Creating multi-stage build for production
+FROM node:20-alpine as build
+RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev vips-dev git > /dev/null 2>&1
+ENV NODE_ENV=production
 
 WORKDIR /opt/
-COPY package.json package-lock.json ./
-
-RUN ulimit -a
-
-RUN npm config set maxsockets 5 -g && npm install -g node-gyp 
-RUN npm config set fetch-retry-maxtimeout 600000 -g \ 
-    && npm install --only=production
+COPY package.json yarn.lock ./
+RUN yarn global add node-gyp
+RUN yarn config set network-timeout 600000 -g && \
+    yarn install --frozen-lockfile
 ENV PATH /opt/node_modules/.bin:$PATH
 WORKDIR /opt/app
 COPY . .
-RUN npm run build
+RUN yarn build
 
 # Creating final production image
-FROM node:20
-RUN apt-get update && apt-get install libvips -y
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
+FROM node:20-alpine
+RUN apk add --no-cache vips-dev
+ENV NODE_ENV=production
 WORKDIR /opt/
 COPY --from=build /opt/node_modules ./node_modules
 WORKDIR /opt/app
 COPY --from=build /opt/app ./
 ENV PATH /opt/node_modules/.bin:$PATH
 
-RUN chown -R node:node /opt/app \ 
-    && npm config delete maxsockets
+RUN chown -R node:node /opt/app
 USER node
 EXPOSE 1337
-CMD ["npm", "run", "start"]
+CMD ["yarn", "start"]
