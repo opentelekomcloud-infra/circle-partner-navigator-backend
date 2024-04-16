@@ -5,6 +5,8 @@
     parent: otc-build-container-image
     description: Build circle-partner-navigator-backend container image
     provides: circle-partner-navigator-backend-image
+    nodeset:
+      nodes: []
     vars: &cpn_image_vars
       container_images:
         - context: .
