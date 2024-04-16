@@ -6,7 +6,7 @@
     description: Build circle-partner-navigator-backend container image
     provides: circle-partner-navigator-backend-image
     nodeset:
-      nodes: []
+      nodes: centos-9-stream
     vars: &cpn_image_vars
       container_images:
         - context: .
