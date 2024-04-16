@@ -5,7 +5,7 @@
     parent: otc-build-container-image
     description: Build circle-partner-navigator-backend container image
     provides: circle-partner-navigator-backend-image
-    nodeset: pod-fedora-latest
+    nodeset: debian-buster
     vars: &cpn_image_vars
       container_images:
         - context: .
