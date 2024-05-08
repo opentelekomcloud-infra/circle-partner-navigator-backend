@@ -805,7 +805,7 @@ export interface ApiFeatureFeature extends Schema.CollectionType {
           localized: false;
         };
       }>;
-    description: Attribute.Text &
+    description: Attribute.RichText &
       Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -872,7 +872,7 @@ export interface ApiPartnerPartner extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    overview_description: Attribute.Text &
+    overview_description: Attribute.RichText &
       Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -886,7 +886,7 @@ export interface ApiPartnerPartner extends Schema.CollectionType {
           localized: false;
         };
       }>;
-    teaser_description: Attribute.Text &
+    teaser_description: Attribute.RichText &
       Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -1128,7 +1128,7 @@ export interface ApiQuoteQuote extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    quotation: Attribute.Text &
+    quotation: Attribute.RichText &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

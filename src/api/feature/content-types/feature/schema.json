@@ -36,7 +36,7 @@
           "localized": true
         }
       },
-      "type": "text",
+      "type": "richtext",
       "required": true
     },
     "headline": {
