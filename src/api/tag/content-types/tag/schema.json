@@ -14,20 +14,22 @@
   "attributes": {
     "color": {
       "type": "string",
-      "pluginOptions": {}
+      "pluginOptions": {},
+      "regex": "^.{0,250}$"
     },
     "partners": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::partner.partner",
-      "mappedBy": "tags",
-      "pluginOptions": {}
+      "pluginOptions": {},
+      "mappedBy": "tags"
     },
     "name": {
       "type": "string",
       "required": true,
       "unique": true,
-      "pluginOptions": {}
+      "pluginOptions": {},
+      "regex": "^.{0,250}$"
     },
     "tag_category": {
       "type": "relation",

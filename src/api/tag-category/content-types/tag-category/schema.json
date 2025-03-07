@@ -24,7 +24,8 @@
       },
       "type": "string",
       "required": true,
-      "unique": true
+      "unique": true,
+      "regex": "^.{0,250}$"
     },
     "order": {
       "pluginOptions": {

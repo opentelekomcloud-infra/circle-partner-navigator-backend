@@ -23,7 +23,8 @@
         }
       },
       "type": "string",
-      "required": true
+      "required": true,
+      "regex": "^.{0,250}$"
     },
     "overview_description": {
       "pluginOptions": {
@@ -75,7 +76,8 @@
         }
       },
       "type": "string",
-      "required": true
+      "required": true,
+      "regex": "^[a-z0-9]{1,50}$"
     },
     "teaser_headline": {
       "pluginOptions": {
@@ -84,7 +86,8 @@
         }
       },
       "type": "string",
-      "required": true
+      "required": true,
+      "regex": "^.{0,250}$"
     },
     "teaser_media": {
       "type": "media",
@@ -107,7 +110,8 @@
         }
       },
       "type": "string",
-      "required": true
+      "required": true,
+      "regex": "^.{0,250}$"
     },
     "overview_company_name": {
       "pluginOptions": {
@@ -116,7 +120,8 @@
         }
       },
       "type": "string",
-      "required": true
+      "required": true,
+      "regex": "^.{0,250}$"
     },
     "overview_website": {
       "pluginOptions": {
@@ -125,7 +130,8 @@
         }
       },
       "type": "string",
-      "required": true
+      "required": true,
+      "regex": "^.{0,250}$"
     },
     "quotes": {
       "type": "relation",
