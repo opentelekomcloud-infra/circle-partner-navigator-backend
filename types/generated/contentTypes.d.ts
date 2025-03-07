@@ -512,6 +512,12 @@ export interface PluginContentReleasesRelease extends Schema.CollectionType {
   attributes: {
     name: Attribute.String & Attribute.Required;
     releasedAt: Attribute.DateTime;
+    scheduledAt: Attribute.DateTime;
+    timezone: Attribute.String;
+    status: Attribute.Enumeration<
+      ['ready', 'blocked', 'failed', 'done', 'empty']
+    > &
+      Attribute.Required;
     actions: Attribute.Relation<
       'plugin::content-releases.release',
       'oneToMany',
@@ -566,6 +572,7 @@ export interface PluginContentReleasesReleaseAction
       'manyToOne',
       'plugin::content-releases.release'
     >;
+    isEntryValid: Attribute.Boolean;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -798,7 +805,7 @@ export interface ApiFeatureFeature extends Schema.CollectionType {
     };
   };
   attributes: {
-    media: Attribute.Media &
+    media: Attribute.Media<'images' | 'videos'> &
       Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -879,7 +886,7 @@ export interface ApiPartnerPartner extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    overview_media: Attribute.Media &
+    overview_media: Attribute.Media<'images'> &
       Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -917,7 +924,7 @@ export interface ApiPartnerPartner extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    teaser_media: Attribute.Media &
+    teaser_media: Attribute.Media<'images' | 'videos'> &
       Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -1012,7 +1019,7 @@ export interface ApiPartnerProgramPartnerProgram extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    media: Attribute.Media &
+    media: Attribute.Media<'images' | 'videos'> &
       Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -1114,7 +1121,7 @@ export interface ApiQuoteQuote extends Schema.CollectionType {
     };
   };
   attributes: {
-    profile_picture: Attribute.Media &
+    profile_picture: Attribute.Media<'images'> &
       Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -1268,7 +1275,8 @@ export interface ApiWebsiteAssetWebsiteAsset extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
-    media: Attribute.Media & Attribute.Required;
+    media: Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Attribute.Required;
     name: Attribute.UID & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

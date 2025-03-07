@@ -23,7 +23,8 @@
         }
       },
       "type": "string",
-      "required": true
+      "required": true,
+      "regex": "^.{0,250}$"
     },
     "subtitle": {
       "pluginOptions": {
@@ -32,7 +33,8 @@
         }
       },
       "type": "string",
-      "required": true
+      "required": true,
+      "regex": "^.{0,250}$"
     },
     "description": {
       "pluginOptions": {
@@ -41,7 +43,8 @@
         }
       },
       "type": "text",
-      "required": true
+      "required": true,
+      "regex": "^.{0,250}$"
     },
     "media": {
       "type": "media",

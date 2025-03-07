@@ -36,7 +36,8 @@
         }
       },
       "type": "string",
-      "required": true
+      "required": true,
+      "regex": "^.{0,250}$"
     },
     "quotation": {
       "pluginOptions": {
