@@ -1,4 +1,4 @@
-import type { Schema, Attribute } from '@strapi/strapi';
+import type { Attribute, Schema } from '@strapi/strapi';
 
 export interface GeneralHeaderDescription extends Schema.Component {
   collectionName: 'components_general_header_descriptions';
@@ -7,8 +7,8 @@ export interface GeneralHeaderDescription extends Schema.Component {
     icon: 'collapse';
   };
   attributes: {
-    title: Attribute.String;
     description: Attribute.Text & Attribute.Required;
+    title: Attribute.String;
   };
 }
 
