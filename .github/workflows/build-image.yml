@@ -10,7 +10,7 @@ on:
       - synchronize
 
 jobs:
-  build_push_track:
+  build_image:
     runs-on: ubuntu-latest
     permissions:
       contents: read
