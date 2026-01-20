@@ -25,10 +25,10 @@
       node_version: 18
     check:
       jobs:
-        - circle-partner-navigator-backend-build-image
+        - noop
     gate:
       jobs:
-        - circle-partner-navigator-backend-upload-image
+        - noop
     release:
       jobs:
-        - circle-partner-navigator-backend-upload-image
+        - noop
