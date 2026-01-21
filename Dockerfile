@@ -8,7 +8,7 @@ COPY package.json yarn.lock ./
 RUN yarn global add node-gyp
 RUN yarn config set network-timeout 600000 -g && \
     yarn install --frozen-lockfile
-ENV PATH /opt/node_modules/.bin:$PATH
+ENV PATH=/opt/node_modules/.bin:$PATH
 WORKDIR /opt/app
 COPY . .
 RUN yarn build
@@ -21,7 +21,7 @@ WORKDIR /opt/
 COPY --from=build /opt/node_modules ./node_modules
 WORKDIR /opt/app
 COPY --from=build /opt/app ./
-ENV PATH /opt/node_modules/.bin:$PATH
+ENV PATH=/opt/node_modules/.bin:$PATH
 
 RUN chown -R node:node /opt/app
 USER node
