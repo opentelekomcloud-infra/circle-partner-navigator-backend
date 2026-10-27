@@ -1,4 +1,4 @@
-name: Build & push backend image + upload SBOM
+name: Build & push backend image
 
 on:
   push:
@@ -55,36 +55,3 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-
-      - name: Analyze with Trivy
-        uses: aquasecurity/trivy-action@0.33.1
-        with:
-          version: "v0.68.2"
-          scan-type: image
-          image-ref: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build.outputs.digest }}"
-          format: cyclonedx
-          output: bom.json
-          exit-code: 0
-          scanners: vuln
-
-      - name: Choose Dependency-Track project version
-        id: dt
-        shell: bash
-        run: |
-          if [[ "${GITHUB_EVENT_NAME}" == "release" ]]; then
-            echo "version=${{ github.event.release.tag_name }}" >> "$GITHUB_OUTPUT"
-          elif [[ "${GITHUB_REF}" == refs/tags/* ]]; then
-            echo "version=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
-          else
-            echo "version=main-${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Upload SBOM to Dependency-Track
-        uses: DependencyTrack/gh-upload-sbom@v3
-        with:
-          serverHostname: ${{ secrets.DEPENDENCYTRACK_PREPROD_HOSTNAME }}
-          apiKey: ${{ secrets.DEPENDENCYTRACK_PREPROD_APIKEY }}
-          projectName: "${{ env.IMAGE_NAME }}"
-          projectVersion: "${{ steps.dt.outputs.version }}"
-          bomFilename: "bom.json"
-          autoCreate: true
